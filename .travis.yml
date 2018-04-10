@@ -1,0 +1,7 @@
+os: osx
+
+install:
+  - # Install steps to go here
+
+script:
+  - echo "hello world"
