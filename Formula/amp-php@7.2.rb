@@ -26,7 +26,7 @@ class AmpPhpAT72 < Formula
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libpq"
-  depends_on "libsodium"
+  depends_on "libtool"
   depends_on "libzip"
   depends_on "openssl"
   depends_on "pcre"
@@ -48,6 +48,9 @@ class AmpPhpAT72 < Formula
               "APXS_LIBEXECDIR='$(INSTALL_ROOT)#{lib}/httpd/modules'"
       s.gsub! "-z `$APXS -q SYSCONFDIR`",
               "-z ''"
+      # apxs will interpolate the @ in the versioned prefix: https://bz.apache.org/bugzilla/show_bug.cgi?id=61944
+      s.gsub! "LIBEXECDIR='$APXS_LIBEXECDIR'",
+              "LIBEXECDIR='" + "#{lib}/httpd/modules".gsub("@", "\\@") + "'"
     end
 
     # Update error message in apache sapi to better explain the requirements
@@ -70,6 +73,9 @@ class AmpPhpAT72 < Formula
     ENV.append "CPPFLAGS", "-DU_USING_ICU_NAMESPACE=1"
 
     config_path = etc/"php/#{php_version}"
+    # Prevent system pear config from inhibitting pear install
+    (config_path/"pear.conf").delete if (config_path/"pear.conf").exist?
+
     # Prevent homebrew from harcoding path to sed shim in phpize script
     ENV["lt_cv_path_SED"] = "sed"
 
