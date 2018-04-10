@@ -1,13 +1,13 @@
-class PhpAT70 < Formula
+class AmpPhpAT56 < Formula
   desc "General-purpose scripting language"
   homepage "https://secure.php.net/"
-  url "https://php.net/get/php-7.0.29.tar.xz/from/this/mirror"
-  sha256 "ca79d3ecc123bff4b623d4a1bbf5ad53ad39f5f2f5912fecc0ea97e95eba21cc"
+  url "https://php.net/get/php-5.6.35.tar.xz/from/this/mirror"
+  sha256 "9985cb64cb8224c289effff5b34f670d14f838175f76daea0507d643eec650d2"
 
   bottle do
-    sha256 "a69d7632ed603a87d4b9140258287ae60366dde630bc3ec35e4425371bbd669b" => :high_sierra
-    sha256 "0ca35e6c6d44dfe3c4b265297311d4b8941dca4f016d45e1760f935b91e9d2a5" => :sierra
-    sha256 "7a743c32faa06d6e16c537e6e55fe6ed046168cc8365569ac89181281dd3d012" => :el_capitan
+    sha256 "df5e8f314eed3b68f47cf4ba34e0dc5c8fa8250868bb8f6e1a87e920aff19087" => :high_sierra
+    sha256 "e5dc4f5d615c96734c5ae0fe262c0ece94c5d3f88793e51c0226427eb1a82144" => :sierra
+    sha256 "e1fa7d5fb36745afda191136b1707b817b95bdb85dc875621d6632121cd4074c" => :el_capitan
   end
 
   keg_only :versioned_formula
@@ -27,7 +27,6 @@ class PhpAT70 < Formula
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libpq"
-  depends_on "libtool"
   depends_on "libzip"
   depends_on "mcrypt"
   depends_on "openssl"
@@ -90,7 +89,6 @@ class PhpAT70 < Formula
       --enable-bcmath
       --enable-calendar
       --enable-dba
-      --enable-dtrace
       --enable-exif
       --enable-ftp
       --enable-fpm
@@ -126,10 +124,11 @@ class PhpAT70 < Formula
       --with-ldap-sasl
       --with-libedit
       --with-libzip
-      --with-mcrypt=#{Formula["mcrypt"].opt_prefix}
       --with-mhash
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
+      --with-mysql=mysqlnd
+      --with-mcrypt=#{Formula["mcrypt"].opt_prefix}
       --with-ndbm
       --with-openssl=#{Formula["openssl"].opt_prefix}
       --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
@@ -167,7 +166,6 @@ class PhpAT70 < Formula
     config_files = {
       "php.ini-development" => "php.ini",
       "sapi/fpm/php-fpm.conf" => "php-fpm.conf",
-      "sapi/fpm/www.conf" => "php-fpm.d/www.conf",
     }
     config_files.each_value do |dst|
       dst_default = config_path/"#{dst}.default"
@@ -184,12 +182,15 @@ class PhpAT70 < Formula
   def caveats
     <<~EOS
       To enable PHP in Apache add the following to httpd.conf and restart Apache:
-          LoadModule php7_module #{opt_lib}/httpd/modules/libphp7.so
+          LoadModule php5_module #{opt_lib}/httpd/modules/libphp5.so
+
           <FilesMatch \.php$>
               SetHandler application/x-httpd-php
           </FilesMatch>
+
       Finally, check DirectoryIndex includes index.php
           DirectoryIndex index.php index.html
+
       The php.ini and php-fpm.ini file can be found in:
           #{etc}/php/#{php_version}/
     EOS
@@ -326,7 +327,7 @@ class PhpAT70 < Formula
       (testpath/"httpd.conf").write <<~EOS
         #{main_config}
         LoadModule mpm_prefork_module lib/httpd/modules/mod_mpm_prefork.so
-        LoadModule php7_module #{lib}/httpd/modules/libphp7.so
+        LoadModule php5_module #{lib}/httpd/modules/libphp5.so
         <FilesMatch \.(php|phar)$>
           SetHandler application/x-httpd-php
         </FilesMatch>

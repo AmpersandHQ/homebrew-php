@@ -1,20 +1,21 @@
-class Php < Formula
+class AmpPhpAT70 < Formula
   desc "General-purpose scripting language"
-  homepage "https://php.net/"
-  url "https://php.net/get/php-7.2.4.tar.xz/from/this/mirror"
-  sha256 "7916b1bd148ddfd46d7f8f9a517d4b09cd8a8ad9248734e7c8dd91ef17057a88"
+  homepage "https://secure.php.net/"
+  url "https://php.net/get/php-7.0.29.tar.xz/from/this/mirror"
+  sha256 "ca79d3ecc123bff4b623d4a1bbf5ad53ad39f5f2f5912fecc0ea97e95eba21cc"
 
   bottle do
-    sha256 "465136132568d7b316e8cec31569aa67af7ce8b6d4e472a55d78c0fbdf22401b" => :high_sierra
-    sha256 "14da8ba8723bb18884271e0e4c3df9e4be5317529bcaa0cf3c7ef30191c2cdc6" => :sierra
-    sha256 "13bd8badd9da31e5f71fa29d624b47a1a18b693f37aa419c552bbe7ba497e4c2" => :el_capitan
+    sha256 "a69d7632ed603a87d4b9140258287ae60366dde630bc3ec35e4425371bbd669b" => :high_sierra
+    sha256 "0ca35e6c6d44dfe3c4b265297311d4b8941dca4f016d45e1760f935b91e9d2a5" => :sierra
+    sha256 "7a743c32faa06d6e16c537e6e55fe6ed046168cc8365569ac89181281dd3d012" => :el_capitan
   end
+
+  keg_only :versioned_formula
 
   depends_on "httpd" => [:build, :test]
   depends_on "pkg-config" => :build
   depends_on "apr"
   depends_on "apr-util"
-  depends_on "argon2"
   depends_on "aspell"
   depends_on "curl" if MacOS.version < :lion
   depends_on "freetds"
@@ -26,8 +27,9 @@ class Php < Formula
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libpq"
-  depends_on "libsodium"
+  depends_on "libtool"
   depends_on "libzip"
+  depends_on "mcrypt"
   depends_on "openssl"
   depends_on "pcre"
   depends_on "unixodbc"
@@ -48,6 +50,9 @@ class Php < Formula
               "APXS_LIBEXECDIR='$(INSTALL_ROOT)#{lib}/httpd/modules'"
       s.gsub! "-z `$APXS -q SYSCONFDIR`",
               "-z ''"
+      # apxs will interpolate the @ in the versioned prefix: https://bz.apache.org/bugzilla/show_bug.cgi?id=61944
+      s.gsub! "LIBEXECDIR='$APXS_LIBEXECDIR'",
+              "LIBEXECDIR='" + "#{lib}/httpd/modules".gsub("@", "\\@") + "'"
     end
 
     # Update error message in apache sapi to better explain the requirements
@@ -70,6 +75,9 @@ class Php < Formula
     ENV.append "CPPFLAGS", "-DU_USING_ICU_NAMESPACE=1"
 
     config_path = etc/"php/#{php_version}"
+    # Prevent system pear config from inhibitting pear install
+    (config_path/"pear.conf").delete if (config_path/"pear.conf").exist?
+
     # Prevent homebrew from harcoding path to sed shim in phpize script
     ENV["lt_cv_path_SED"] = "sed"
 
@@ -118,12 +126,12 @@ class Php < Formula
       --with-ldap-sasl
       --with-libedit
       --with-libzip
+      --with-mcrypt=#{Formula["mcrypt"].opt_prefix}
       --with-mhash
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
       --with-ndbm
       --with-openssl=#{Formula["openssl"].opt_prefix}
-      --with-password-argon2=#{Formula["argon2"].opt_prefix}
       --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
       --with-pdo-mysql=mysqlnd
       --with-pdo-odbc=unixODBC,#{Formula["unixodbc"].opt_prefix}
@@ -132,7 +140,6 @@ class Php < Formula
       --with-pic
       --with-png-dir=#{Formula["libpng"].opt_prefix}
       --with-pspell=#{Formula["aspell"].opt_prefix}
-      --with-sodium=#{Formula["libsodium"].opt_prefix}
       --with-unixODBC=#{Formula["unixodbc"].opt_prefix}
       --with-webp-dir=#{Formula["webp"].opt_prefix}
       --with-xmlrpc
@@ -178,14 +185,11 @@ class Php < Formula
     <<~EOS
       To enable PHP in Apache add the following to httpd.conf and restart Apache:
           LoadModule php7_module #{opt_lib}/httpd/modules/libphp7.so
-
           <FilesMatch \.php$>
               SetHandler application/x-httpd-php
           </FilesMatch>
-
       Finally, check DirectoryIndex includes index.php
           DirectoryIndex index.php index.html
-
       The php.ini and php-fpm.ini file can be found in:
           #{etc}/php/#{php_version}/
     EOS

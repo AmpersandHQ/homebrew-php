@@ -1,21 +1,20 @@
-class PhpAT71 < Formula
+class AmpPhpAT72 < Formula
   desc "General-purpose scripting language"
-  homepage "https://secure.php.net/"
-  url "https://php.net/get/php-7.1.16.tar.xz/from/this/mirror"
-  sha256 "a5d67e477248a3911af7ef85c8400c1ba8cd632184186fd31070b96714e669f1"
+  homepage "https://php.net/"
+  url "https://php.net/get/php-7.2.4.tar.xz/from/this/mirror"
+  sha256 "7916b1bd148ddfd46d7f8f9a517d4b09cd8a8ad9248734e7c8dd91ef17057a88"
 
   bottle do
-    sha256 "cd22b9c7cd6986c7e80acaac6eb971acbf01ba9b3a4401df15d6d193b0f699a8" => :high_sierra
-    sha256 "e5076139cf49e588eaae0dc19bca48d1f64723332e7425511fd5d8a9df30c6bd" => :sierra
-    sha256 "bd8156ab99f193771156a04c642addb023b193d127c8d75e8f2fc916b4a5b5ec" => :el_capitan
+    sha256 "465136132568d7b316e8cec31569aa67af7ce8b6d4e472a55d78c0fbdf22401b" => :high_sierra
+    sha256 "14da8ba8723bb18884271e0e4c3df9e4be5317529bcaa0cf3c7ef30191c2cdc6" => :sierra
+    sha256 "13bd8badd9da31e5f71fa29d624b47a1a18b693f37aa419c552bbe7ba497e4c2" => :el_capitan
   end
-
-  keg_only :versioned_formula
 
   depends_on "httpd" => [:build, :test]
   depends_on "pkg-config" => :build
   depends_on "apr"
   depends_on "apr-util"
+  depends_on "argon2"
   depends_on "aspell"
   depends_on "curl" if MacOS.version < :lion
   depends_on "freetds"
@@ -27,9 +26,8 @@ class PhpAT71 < Formula
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libpq"
-  depends_on "libtool"
+  depends_on "libsodium"
   depends_on "libzip"
-  depends_on "mcrypt"
   depends_on "openssl"
   depends_on "pcre"
   depends_on "unixodbc"
@@ -50,9 +48,6 @@ class PhpAT71 < Formula
               "APXS_LIBEXECDIR='$(INSTALL_ROOT)#{lib}/httpd/modules'"
       s.gsub! "-z `$APXS -q SYSCONFDIR`",
               "-z ''"
-      # apxs will interpolate the @ in the versioned prefix: https://bz.apache.org/bugzilla/show_bug.cgi?id=61944
-      s.gsub! "LIBEXECDIR='$APXS_LIBEXECDIR'",
-              "LIBEXECDIR='" + "#{lib}/httpd/modules".gsub("@", "\\@") + "'"
     end
 
     # Update error message in apache sapi to better explain the requirements
@@ -75,9 +70,6 @@ class PhpAT71 < Formula
     ENV.append "CPPFLAGS", "-DU_USING_ICU_NAMESPACE=1"
 
     config_path = etc/"php/#{php_version}"
-    # Prevent system pear config from inhibitting pear install
-    (config_path/"pear.conf").delete if (config_path/"pear.conf").exist?
-
     # Prevent homebrew from harcoding path to sed shim in phpize script
     ENV["lt_cv_path_SED"] = "sed"
 
@@ -126,12 +118,12 @@ class PhpAT71 < Formula
       --with-ldap-sasl
       --with-libedit
       --with-libzip
-      --with-mcrypt=#{Formula["mcrypt"].opt_prefix}
       --with-mhash
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
       --with-ndbm
       --with-openssl=#{Formula["openssl"].opt_prefix}
+      --with-password-argon2=#{Formula["argon2"].opt_prefix}
       --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
       --with-pdo-mysql=mysqlnd
       --with-pdo-odbc=unixODBC,#{Formula["unixodbc"].opt_prefix}
@@ -140,6 +132,7 @@ class PhpAT71 < Formula
       --with-pic
       --with-png-dir=#{Formula["libpng"].opt_prefix}
       --with-pspell=#{Formula["aspell"].opt_prefix}
+      --with-sodium=#{Formula["libsodium"].opt_prefix}
       --with-unixODBC=#{Formula["unixodbc"].opt_prefix}
       --with-webp-dir=#{Formula["webp"].opt_prefix}
       --with-xmlrpc
