@@ -4,12 +4,6 @@ class AmpPhpAT72 < Formula
   url "https://php.net/get/php-7.2.4.tar.xz/from/this/mirror"
   sha256 "7916b1bd148ddfd46d7f8f9a517d4b09cd8a8ad9248734e7c8dd91ef17057a88"
 
-  bottle do
-    sha256 "465136132568d7b316e8cec31569aa67af7ce8b6d4e472a55d78c0fbdf22401b" => :high_sierra
-    sha256 "14da8ba8723bb18884271e0e4c3df9e4be5317529bcaa0cf3c7ef30191c2cdc6" => :sierra
-    sha256 "13bd8badd9da31e5f71fa29d624b47a1a18b693f37aa419c552bbe7ba497e4c2" => :el_capitan
-  end
-
   depends_on "httpd" => [:build, :test]
   depends_on "pkg-config" => :build
   depends_on "apr"

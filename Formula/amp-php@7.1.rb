@@ -4,12 +4,6 @@ class AmpPhpAT71 < Formula
   url "https://php.net/get/php-7.1.16.tar.xz/from/this/mirror"
   sha256 "a5d67e477248a3911af7ef85c8400c1ba8cd632184186fd31070b96714e669f1"
 
-  bottle do
-    sha256 "cd22b9c7cd6986c7e80acaac6eb971acbf01ba9b3a4401df15d6d193b0f699a8" => :high_sierra
-    sha256 "e5076139cf49e588eaae0dc19bca48d1f64723332e7425511fd5d8a9df30c6bd" => :sierra
-    sha256 "bd8156ab99f193771156a04c642addb023b193d127c8d75e8f2fc916b4a5b5ec" => :el_capitan
-  end
-
   keg_only :versioned_formula
 
   depends_on "httpd" => [:build, :test]
