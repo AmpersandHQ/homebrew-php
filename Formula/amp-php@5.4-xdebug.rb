@@ -1,9 +1,9 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class AmpPhpAT56Xdebug < AbstractPhp56Extension
+class AmpPhpAT54Xdebug < AbstractPhp54Extension
   init
   desc "Provides debugging and profiling capabilities for PHP"
-  homepage "https://xdebug.org"
+  homepage "http://xdebug.org"
   url "https://pecl.php.net/get/xdebug-2.5.5.tgz"
   sha256 "72108bf2bc514ee7198e10466a0fedcac3df9bbc5bd26ce2ec2dafab990bf1a4"
   head "https://github.com/xdebug/xdebug.git"
@@ -25,6 +25,8 @@ class AmpPhpAT56Xdebug < AbstractPhp56Extension
 
   def install
     Dir.chdir "xdebug-#{version}" unless build.head?
+
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

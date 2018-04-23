@@ -55,7 +55,7 @@ class AbstractPhpExtension < Formula
   end
 
   def php_formula
-    "php" + php_branch.sub(".", "")
+    "amp-php@" + php_branch.sub(".", ".")
   end
 
   def safe_phpize
@@ -177,30 +177,21 @@ EOS
   end
 end
 
-class AbstractPhp53Extension < AbstractPhpExtension
-  include AbstractPhpVersion::Php53Defs
-
-  def self.init(opts = [])
-    super()
-    depends_on "php53" => opts if build.with?("homebrew-php")
-  end
-end
-
 class AbstractPhp54Extension < AbstractPhpExtension
   include AbstractPhpVersion::Php54Defs
 
   def self.init(opts = [])
     super()
-    depends_on "php54" => opts if build.with?("homebrew-php")
+    depends_on "amp-php@5.4" => opts if build.with?("homebrew-php")
   end
 end
 
 class AbstractPhp55Extension < AbstractPhpExtension
-  include AbstractPhpVersion::Php55Defs
+
 
   def self.init(opts = [])
     super()
-    depends_on "php55" => opts if build.with?("homebrew-php")
+    depends_on "amp-php@5.5" => opts if build.with?("homebrew-php")
   end
 end
 
@@ -209,7 +200,7 @@ class AbstractPhp56Extension < AbstractPhpExtension
 
   def self.init(opts = [])
     super()
-    depends_on "php56" => opts if build.with?("homebrew-php")
+    depends_on "amp-php@5.6" => opts if build.with?("homebrew-php")
   end
 end
 
@@ -218,7 +209,7 @@ class AbstractPhp70Extension < AbstractPhpExtension
 
   def self.init(opts = [])
     super()
-    depends_on "php70" => opts if build.with?("homebrew-php")
+    depends_on "amp-php@7.0" => opts if build.with?("homebrew-php")
   end
 end
 
@@ -227,7 +218,7 @@ class AbstractPhp71Extension < AbstractPhpExtension
 
   def self.init(opts = [])
     super()
-    depends_on "php71" => opts if build.with?("homebrew-php")
+    depends_on "amp-php@7.1" => opts if build.with?("homebrew-php")
   end
 end
 
@@ -236,6 +227,6 @@ class AbstractPhp72Extension < AbstractPhpExtension
 
   def self.init(opts = [])
     super()
-    depends_on "php" => opts if build.with?("homebrew-php")
+    depends_on "amp-php@7.2" => opts if build.with?("homebrew-php")
   end
 end

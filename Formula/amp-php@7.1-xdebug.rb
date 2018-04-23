@@ -1,11 +1,11 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class AmpPhpAT56Xdebug < AbstractPhp56Extension
+class AmpPhpAT71Xdebug < AbstractPhp71Extension
   init
-  desc "Provides debugging and profiling capabilities for PHP"
+  desc "Provides debugging and profiling capabilities."
   homepage "https://xdebug.org"
-  url "https://pecl.php.net/get/xdebug-2.5.5.tgz"
-  sha256 "72108bf2bc514ee7198e10466a0fedcac3df9bbc5bd26ce2ec2dafab990bf1a4"
+  url "https://xdebug.org/files/xdebug-2.6.0.tgz"
+  sha256 "b5264cc03bf68fcbb04b97229f96dca505d7b87ec2fb3bd4249896783d29cbdc"
   head "https://github.com/xdebug/xdebug.git"
 
   def extension_type
