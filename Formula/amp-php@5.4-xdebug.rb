@@ -4,8 +4,8 @@ class AmpPhpAT54Xdebug < AbstractPhp54Extension
   init
   desc "Provides debugging and profiling capabilities for PHP"
   homepage "http://xdebug.org"
-  url "https://pecl.php.net/get/xdebug-2.5.5.tgz"
-  sha256 "72108bf2bc514ee7198e10466a0fedcac3df9bbc5bd26ce2ec2dafab990bf1a4"
+  url "https://pecl.php.net/get/xdebug-2.3.2.tgz"
+  sha256 "f875d0f8c4e96fa7c698a461a14faa6331694be231e2ddc4f3de0733322fc6d0"
   head "https://github.com/xdebug/xdebug.git"
 
   def extension_type
