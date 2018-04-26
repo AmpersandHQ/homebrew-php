@@ -5,6 +5,8 @@ class Icu4cAT551 < Formula
   version "55.1"
   sha256 "e16b22cbefdd354bec114541f7849a12f8fc2015320ca5282ee4fd787571457b"
 
+  keg_only "This version should only be used as a dependency when building amp-php@5.4, it does not need linked as references by path"
+
   option :universal
   option :cxx11
 
