@@ -17,7 +17,7 @@ class AmpPhpAT54 < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmp"
-  depends_on "icu4c"
+  depends_on "icu4c@55.1"
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libpq"
@@ -86,14 +86,10 @@ class AmpPhpAT54 < Formula
       --enable-exif
       --enable-ftp
       --enable-fpm
-      --enable-intl
       --enable-mbregex
       --enable-mbstring
       --enable-mysqlnd
-      --enable-opcache-file
       --enable-pcntl
-      --enable-phpdbg
-      --enable-phpdbg-webhelper
       --enable-shmop
       --enable-soap
       --enable-sockets
@@ -110,14 +106,13 @@ class AmpPhpAT54 < Formula
       --with-gd
       --with-gettext=#{Formula["gettext"].opt_prefix}
       --with-gmp=#{Formula["gmp"].opt_prefix}
-      --with-icu-dir=#{Formula["icu4c"].opt_prefix}
+      --with-icu-dir=#{Formula["icu4c@55.1"].opt_prefix}
       --with-jpeg-dir=#{Formula["jpeg"].opt_prefix}
       --with-kerberos
       --with-layout=GNU
       --with-ldap
       --with-ldap-sasl
       --with-libedit
-      --with-libzip
       --with-mhash
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
@@ -134,7 +129,6 @@ class AmpPhpAT54 < Formula
       --with-png-dir=#{Formula["libpng"].opt_prefix}
       --with-pspell=#{Formula["aspell"].opt_prefix}
       --with-unixODBC=#{Formula["unixodbc"].opt_prefix}
-      --with-webp-dir=#{Formula["webp"].opt_prefix}
       --with-xmlrpc
       --with-xsl
       --with-zlib
@@ -145,6 +139,8 @@ class AmpPhpAT54 < Formula
     else
       args << "--with-curl"
     end
+
+    #args << "--enable-intl"
 
     system "./configure", *args
     system "make"
