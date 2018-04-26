@@ -140,7 +140,43 @@ class AmpPhpAT54 < Formula
       args << "--with-curl"
     end
 
-    #args << "--enable-intl"
+    args << "--enable-intl"
+
+    # The below sed hack switches the Make install step from using the portable
+    #   mkinstalldirs = $(top_srcdir)/build/shtool mkdir -p
+    # to
+    #   mkinstalldirs = mkdir -p
+    #
+    # When using the shtool program to run "mkdir -p" we were receiving the following errors
+    #
+    #     Installing PHP SAPI module:       apache2handler
+    #     Installing PHP CLI binary:        /usr/local/Cellar/amp-php@5.4/5.4.45/bin/
+    #     Installing PHP FPM binary:        /usr/local/Cellar/amp-php@5.4/5.4.45/sbin/
+    #     mkdir: /usr/local/Cellar/amp-php@5.4/5.4.45/bin: File exists
+    #     make: *** [install-cli] Error 1
+    #     make: *** Waiting for unfinished jobs....
+    #
+    # Switching over to the system mkdir allows for 5.4 to install without issue
+    # This is inherently less portable, but we're focusing on installing on OSX so I believe this portability can be
+    # sacrificed
+    #
+    # I believe this is the bug that exists in shtool as it specifically affects the mkdir function
+    #
+    #    $ diff php-5.4.45/build/shtool php-5.5.38/build/shtool
+    #    1006c1006,1013
+    #    <                     mkdir $pathcomp || errstatus=$?
+    #    ---
+    #    >                     # See https://bugs.php.net/51076
+    #    >                     # The fix is from Debian who have sent it
+    #    >                     # upstream, too; but upstream seems dead.
+    #    >                     mkdir $pathcomp || {
+    #    >                         _errstatus=$?
+    #    >                         [ -d "$pathcomp" ] || errstatus=${_errstatus}
+    #    >                         unset _errstatus
+    #    >                     }
+
+    system "which mkdir" # Leaving this line in for easier debugging in future
+    system "sed -i '' \"1s/.*/mkinstalldirs = mkdir -p/\" Makefile.global"
 
     system "./configure", *args
     system "make"
