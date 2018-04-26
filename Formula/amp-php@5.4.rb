@@ -223,6 +223,10 @@ class AmpPhpAT54 < Formula
   end
 
   def post_install
+
+    # 5.4 tries to enable the php module during install, this is unlike the other versions. Disable it.
+    system "sed -i '' 's/LoadModule php5_module/#LoadModule php5_module/' #{etc}/httpd/httpd.conf || true"
+
     pear_prefix = share/"pear"
     pear_files = %W[
       #{pear_prefix}/.depdblock
