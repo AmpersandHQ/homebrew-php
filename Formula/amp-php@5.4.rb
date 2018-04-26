@@ -263,7 +263,6 @@ class AmpPhpAT54 < Formula
       "data_dir" => pear_path/"data",
       "cfg_dir" => pear_path/"cfg",
       "www_dir" => pear_path/"htdocs",
-      "man_dir" => HOMEBREW_PREFIX/"share/man",
       "test_dir" => pear_path/"test",
       "php_bin" => opt_bin/"php",
     }.each do |key, value|
