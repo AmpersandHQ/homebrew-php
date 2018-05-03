@@ -191,6 +191,13 @@ class AmpPhpAT55 < Formula
   end
 
   def post_install
+
+    # Set a default date.timezone
+    system "sed -i '' 's/;date.timezone =/date.timezone=\"Europe\\/London\"/' #{etc}/php/#{php_version}/php.ini"
+
+    # Increase default memory limit
+    system "sed -i '' 's/memory_limit = 128M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
+
     pear_prefix = share/"pear"
     pear_files = %W[
       #{pear_prefix}/.depdblock

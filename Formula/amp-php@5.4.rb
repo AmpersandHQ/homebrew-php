@@ -227,6 +227,12 @@ class AmpPhpAT54 < Formula
     # 5.4 tries to enable the php module during install, this is unlike the other versions. Disable it.
     system "sed -i '' 's/LoadModule php5_module/#LoadModule php5_module/' #{etc}/httpd/httpd.conf || true"
 
+    # Set a default date.timezone
+    system "sed -i '' 's/;date.timezone =/date.timezone=\"Europe\\/London\"/' #{etc}/php/#{php_version}/php.ini"
+
+    # Increase default memory limit
+    system "sed -i '' 's/memory_limit = 128M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
+
     pear_prefix = share/"pear"
     pear_files = %W[
       #{pear_prefix}/.depdblock
