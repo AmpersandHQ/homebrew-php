@@ -197,6 +197,7 @@ class AmpPhpAT72 < Formula
 
     # Increase default memory limit
     system "sed -i '' 's/memory_limit = 128M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
+    system "sed -i '' 's/memory_limit = 512M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
 
     pear_prefix = share/"pear"
     pear_files = %W[
