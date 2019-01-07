@@ -233,13 +233,13 @@ class AmpPhpAT54 < Formula
       #{pear_prefix}/.lock
     ]
 
-    %W[
-      #{pear_prefix}/.channels
-      #{pear_prefix}/.channels/.alias
-    ].each do |f|
-      chmod 0755, f
-      pear_files.concat(Dir["#{f}/*"])
-    end
+    #%W[
+    #  #{pear_prefix}/.channels
+    #  #{pear_prefix}/.channels/.alias
+    #].each do |f|
+    #  chmod 0755, f
+    #  pear_files.concat(Dir["#{f}/*"])
+    #end
 
     chmod 0644, pear_files
 
