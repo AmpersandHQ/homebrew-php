@@ -247,7 +247,7 @@ class AmpPhpAT54 < Formula
 
     system "echo 3"
 
-    chmod 0644, pear_files
+    #chmod 0644, pear_files
 
     system "echo 4"
 

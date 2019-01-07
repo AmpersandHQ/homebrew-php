@@ -206,7 +206,7 @@ class AmpPhpAT56 < Formula
     #  pear_files.concat(Dir["#{f}/*"])
     #end
 
-    chmod 0644, pear_files
+    #chmod 0644, pear_files
 
     # Custom location for extensions installed via pecl
     pecl_path = HOMEBREW_PREFIX/"lib/php/pecl"
