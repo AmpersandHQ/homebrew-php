@@ -29,8 +29,7 @@ class AmpPhpAT70 < Formula
   depends_on "openssl"
   depends_on "pcre"
   depends_on "sqlite"
-  # https://github.com/kabel/homebrew-php-ext/issues/2
-  depends_on "amp-php-legacy-tidy"
+  depends_on "tidy-html5"
   depends_on "unixodbc"
   depends_on "webp"
 
@@ -156,7 +155,7 @@ class AmpPhpAT70 < Formula
       --with-png-dir=#{Formula["libpng"].opt_prefix}
       --with-pspell=#{Formula["aspell"].opt_prefix}
       --with-sqlite3=#{Formula["sqlite"].opt_prefix}
-      --with-tidy=#{Formula["amp-php-legacy-tidy"].opt_prefix}
+      --with-tidy
       --with-unixODBC=#{Formula["unixodbc"].opt_prefix}
       --with-webp-dir=#{Formula["webp"].opt_prefix}
       --with-xmlrpc
