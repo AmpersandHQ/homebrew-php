@@ -261,24 +261,24 @@ class AmpPhpAT54 < Formula
     system "echo 5"
 
     # fix pear config to install outside cellar
-    pear_path = HOMEBREW_PREFIX/"share/pear@#{php_version}"
-    cp_r pkgshare/"pear/.", pear_path
-    {
-      "php_ini"  => etc/"php/#{php_version}/php.ini",
-      "php_dir"  => pear_path,
-      "doc_dir"  => pear_path/"doc",
-      "ext_dir"  => pecl_path/php_basename,
-      "bin_dir"  => opt_bin,
-      "data_dir" => pear_path/"data",
-      "cfg_dir"  => pear_path/"cfg",
-      "www_dir"  => pear_path/"htdocs",
-      "man_dir"  => HOMEBREW_PREFIX/"share/man",
-      "test_dir" => pear_path/"test",
-      "php_bin"  => opt_bin/"php",
-    }.each do |key, value|
-      value.mkpath if key =~ /(?<!bin|man)_dir$/
-      system bin/"pear", "config-set", key, value, "system"
-    end
+    #pear_path = HOMEBREW_PREFIX/"share/pear@#{php_version}"
+    #cp_r pkgshare/"pear/.", pear_path
+    #{
+    #  "php_ini"  => etc/"php/#{php_version}/php.ini",
+    #  "php_dir"  => pear_path,
+    #  "doc_dir"  => pear_path/"doc",
+    #  "ext_dir"  => pecl_path/php_basename,
+    #  "bin_dir"  => opt_bin,
+    #  "data_dir" => pear_path/"data",
+    #  "cfg_dir"  => pear_path/"cfg",
+    #  "www_dir"  => pear_path/"htdocs",
+    #  "man_dir"  => HOMEBREW_PREFIX/"share/man",
+    #  "test_dir" => pear_path/"test",
+    #  "php_bin"  => opt_bin/"php",
+    #}.each do |key, value|
+    #  value.mkpath if key =~ /(?<!bin|man)_dir$/
+    #  system bin/"pear", "config-set", key, value, "system"
+    #end
 
     system "echo 6"
 
