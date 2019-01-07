@@ -119,6 +119,7 @@ class AmpPhpAT54 < Formula
       --with-gd
       --with-gettext=#{Formula["gettext"].opt_prefix}
       --with-gmp=#{Formula["gmp"].opt_prefix}
+      --with-iconv#{headers_path}
       --with-icu-dir=#{Formula["icu4c@55.1"].opt_prefix}
       --with-jpeg-dir=#{Formula["jpeg"].opt_prefix}
       --with-kerberos#{headers_path}
