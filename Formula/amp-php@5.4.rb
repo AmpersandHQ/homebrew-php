@@ -225,8 +225,6 @@ class AmpPhpAT54 < Formula
     system "sed -i '' 's/memory_limit = 128M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
     system "sed -i '' 's/memory_limit = 512M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
 
-    system "echo 1"
-
     pear_prefix = pkgshare/"pear"
     pear_files = %W[
       #{pear_prefix}/.depdblock
@@ -234,8 +232,6 @@ class AmpPhpAT54 < Formula
       #{pear_prefix}/.depdb
       #{pear_prefix}/.lock
     ]
-
-    system "echo 2"
 
     #%W[
     #  #{pear_prefix}/.channels
@@ -245,11 +241,7 @@ class AmpPhpAT54 < Formula
     #  pear_files.concat(Dir["#{f}/*"])
     #end
 
-    system "echo 3"
-
-    #chmod 0644, pear_files
-
-    system "echo 4"
+    chmod 0644, pear_files
 
     # Custom location for extensions installed via pecl
     pecl_path = HOMEBREW_PREFIX/"lib/php/pecl"
@@ -257,8 +249,6 @@ class AmpPhpAT54 < Formula
     extension_dir = Utils.popen_read("#{bin}/php-config --extension-dir").chomp
     php_basename = File.basename(extension_dir)
     php_ext_dir = opt_prefix/"lib/php"/php_basename
-
-    system "echo 5"
 
     # fix pear config to install outside cellar
     pear_path = HOMEBREW_PREFIX/"share/pear@#{php_version}"
@@ -279,8 +269,6 @@ class AmpPhpAT54 < Formula
       value.mkpath if key =~ /(?<!bin|man)_dir$/
       system bin/"pear", "config-set", key, value, "system"
     end
-
-    system "echo 6"
 
     system bin/"pear", "update-channels"
   end
