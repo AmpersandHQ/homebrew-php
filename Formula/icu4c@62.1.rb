@@ -15,7 +15,7 @@ class Icu4cAT621 < Formula
     ENV.cxx11 if build.cxx11?
 
     args = ["--prefix=#{prefix}", "--disable-samples", "--disable-tests", "--enable-static"]
-    args << "--with-library-bits=64" if MacOS.prefer_64_bit?
+    args << "--with-library-bits=64"
 
     cd "source" do
       system "./configure", *args
