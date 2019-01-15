@@ -237,23 +237,6 @@ class AmpPhpAT56 < Formula
 
     system bin/"pear", "update-channels"
 
-    %w[
-      opcache
-    ].each do |e|
-      ext_config_path = etc/"php/#{php_version}/conf.d/ext-#{e}.ini"
-      extension_type = (e == "opcache") ? "zend_extension" : "extension"
-      if ext_config_path.exist?
-        inreplace ext_config_path,
-          /#{extension_type}=.*$/, "#{extension_type}=#{php_ext_dir}/#{e}.so"
-      else
-        ext_config_path.write <<~EOS
-          [#{e}]
-          #{extension_type}="#{php_ext_dir}/#{e}.so"
-        EOS
-      end
-    end
-  end
-
   def caveats
     <<~EOS
       To enable PHP in Apache add the following to httpd.conf and restart Apache:
