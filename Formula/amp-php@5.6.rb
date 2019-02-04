@@ -33,7 +33,7 @@ class AmpPhpAT56 < Formula
   # see https://github.com/php/php-src/pull/3472
   patch :DATA
 
-  needs :cxx11
+
 
   def install
     # Ensure that libxml2 will be detected correctly in older MacOS
