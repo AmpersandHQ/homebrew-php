@@ -1,8 +1,8 @@
 class AmpPhpAT73 < Formula
   desc "General-purpose scripting language"
   homepage "https://secure.php.net/"
-  url "https://php.net/get/php-7.3.0.tar.xz/from/this/mirror"
-  sha256 "7d195cad55af8b288c3919c67023a14ff870a73e3acc2165a6d17a4850a560b5"
+  url "https://php.net/get/php-7.3.3.tar.xz/from/this/mirror"
+  sha256 "6bb03e79a183d0cb059a6d117bbb2e0679cab667fb713a13c6a16f56bebab9b3"
 
   keg_only :versioned_formula
 
@@ -19,6 +19,7 @@ class AmpPhpAT73 < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmp"
+  depends_on "icu4c"
   depends_on "icu4c@62.1"
   depends_on "jpeg"
   depends_on "libpng"
@@ -123,7 +124,7 @@ class AmpPhpAT73 < Formula
       --with-gettext=#{Formula["gettext"].opt_prefix}
       --with-gmp=#{Formula["gmp"].opt_prefix}
       --with-iconv#{headers_path}
-      --with-icu-dir=#{Formula["icu4c@62.1"].opt_prefix}
+      --with-icu-dir=#{Formula["icu4c"].opt_prefix}
       --with-jpeg-dir=#{Formula["jpeg"].opt_prefix}
       --with-kerberos#{headers_path}
       --with-layout=GNU
