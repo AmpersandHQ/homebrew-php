@@ -1,0 +1,26 @@
+class Yarn < Formula
+  desc "JavaScript package manager"
+  homepage "https://yarnpkg.com/"
+  # Should only be updated if the new version is listed as a stable release on the homepage
+  url "https://yarnpkg.com/downloads/1.16.0/yarn-v1.16.0.tar.gz"
+  sha256 "df202627d9a70cf09ef2fb11cb298cb619db1b958590959d6f6e571b50656029"
+
+  bottle :unneeded
+
+  depends_on "node"
+
+  conflicts_with "hadoop", :because => "both install `yarn` binaries"
+
+  def install
+    libexec.install Dir["*"]
+    (bin/"yarn").write_env_script "#{libexec}/bin/yarn.js", :PREFIX => HOMEBREW_PREFIX, :NPM_CONFIG_PYTHON => "/usr/bin/python"
+    (bin/"yarnpkg").write_env_script "#{libexec}/bin/yarn.js", :PREFIX => HOMEBREW_PREFIX, :NPM_CONFIG_PYTHON => "/usr/bin/python"
+    inreplace "#{libexec}/package.json", '"installationMethod": "tar"', '"installationMethod": "homebrew"'
+  end
+
+  test do
+    (testpath/"package.json").write('{"name": "test"}')
+    system bin/"yarn", "add", "jquery"
+    system bin/"yarn", "add", "fsevents", "--build-from-source=true"
+  end
+end
