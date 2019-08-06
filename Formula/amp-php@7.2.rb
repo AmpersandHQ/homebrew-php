@@ -1,8 +1,8 @@
 class AmpPhpAT72 < Formula
   desc "General-purpose scripting language"
   homepage "https://secure.php.net/"
-  url "https://php.net/get/php-7.2.13.tar.xz/from/this/mirror"
-  sha256 "14b0429abdb46b65c843e5882c9a8c46b31dfbf279c747293b8ab950c2644a4b"
+  url "https://php.net/get/php-7.2.21.tar.xz/from/this/mirror"
+  sha256 "de06aff019d8f5079115795bd7d8eedd4cd03daecb62d58abb18f492dd995c95"
 
   keg_only :versioned_formula
 
