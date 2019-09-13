@@ -10,7 +10,7 @@ class HttpdWithOpenssl10 < Formula
   depends_on "apr"
   depends_on "apr-util-with-openssl-1.0"
   depends_on "brotli"
-  depends_on "nghttp2-with-openssl-1.0"
+  depends_on "nghttp2"
   depends_on "openssl"
   depends_on "pcre"
   uses_from_macos "zlib"
@@ -58,7 +58,7 @@ class HttpdWithOpenssl10 < Formula
                           "--with-brotli=#{Formula["brotli"].opt_prefix}",
                           "--with-libxml2=#{MacOS.sdk_path_if_needed}/usr",
                           "--with-mpm=prefork",
-                          "--with-nghttp2=#{Formula["nghttp2-with-openssl-1.0"].opt_prefix}",
+                          "--with-nghttp2=#{Formula["nghttp2"].opt_prefix}",
                           "--with-ssl=#{Formula["openssl"].opt_prefix}",
                           "--with-pcre=#{Formula["pcre"].opt_prefix}",
                           "--with-z=#{MacOS.sdk_path_if_needed}/usr",
