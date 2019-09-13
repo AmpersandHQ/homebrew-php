@@ -5,6 +5,8 @@ class LibeventWithOpenssl10 < Formula
   sha256 "229393ab2bf0dc94694f21836846b424f3532585bac3468738b7bf752c03901e"
   revision 1
 
+  keg_only "Used for legacy php installs"
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "doxygen" => :build

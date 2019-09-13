@@ -5,6 +5,8 @@ class HttpdWithOpenssl10 < Formula
   sha256 "133d48298fe5315ae9366a0ec66282fa4040efa5d566174481077ade7d18ea40"
   revision 1
 
+  keg_only "Used for legacy php installs"
+
   depends_on "apr"
   depends_on "apr-util-with-openssl-1.0"
   depends_on "brotli"
@@ -100,6 +102,8 @@ class HttpdWithOpenssl10 < Formula
   end
 
   def post_install
+    # The worst hack ever, this will copy over header files necessary to install legacy php versions with --with-apxs2
+    system "cp -n /usr/local/Cellar/apr-util/1.*/libexec/include/apr-1/*.h /usr/local/opt/httpd-with-openssl-1.0/include/httpd/"
     (var/"cache/httpd").mkpath
     (var/"www").mkpath
   end

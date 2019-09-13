@@ -23,7 +23,6 @@ class CurlOpensslWithOpenssl10 < Formula
   depends_on "nghttp2"
   depends_on "openldap"
   depends_on "openssl"
-  depends_on "openssl@1.1"
   depends_on "rtmpdump"
 
   def install
@@ -35,8 +34,8 @@ class CurlOpensslWithOpenssl10 < Formula
       --disable-silent-rules
       --prefix=#{prefix}
       --enable-ares=#{Formula["c-ares"].opt_prefix}
-      --with-ca-bundle=#{etc}/openssl@1.1/cert.pem
-      --with-ca-path=#{etc}/openssl@1.1/certs
+      --with-ca-bundle=#{etc}/openssl/cert.pem
+      --with-ca-path=#{etc}/openssl/certs
       --with-gssapi
       --with-libidn2
       --with-libmetalink
