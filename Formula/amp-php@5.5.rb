@@ -6,13 +6,12 @@ class AmpPhpAT55 < Formula
 
   keg_only :versioned_formula
 
-  depends_on "httpd" => [:build, :test]
   depends_on "pkg-config" => :build
   depends_on "apr"
   depends_on "apr-util"
   depends_on "aspell"
   depends_on "autoconf"
-  depends_on "curl-openssl"
+  depends_on "curl-openssl-with-openssl-1.0"
   depends_on "freetds"
   depends_on "freetype"
   depends_on "gettext"
@@ -114,9 +113,8 @@ class AmpPhpAT55 < Formula
       --enable-sysvshm
       --enable-wddx
       --enable-zip
-      --with-apxs2=#{Formula["httpd"].opt_bin}/apxs
       --with-bz2#{headers_path}
-      --with-curl=#{Formula["curl-openssl"].opt_prefix}
+      --with-curl=#{Formula["curl-openssl-with-openssl-1.0"].opt_prefix}
       --with-fpm-user=_www
       --with-fpm-group=_www
       --with-freetype-dir=#{Formula["freetype"].opt_prefix}
