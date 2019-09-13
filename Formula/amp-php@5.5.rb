@@ -6,6 +6,7 @@ class AmpPhpAT55 < Formula
 
   keg_only :versioned_formula
 
+  depends_on "httpd" => :build 
   depends_on "pkg-config" => :build
   depends_on "httpd-with-openssl-1.0" => :build
   depends_on "apr"
