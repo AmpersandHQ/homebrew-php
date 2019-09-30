@@ -2,6 +2,7 @@ class Icu4cAT621 < Formula
   homepage "http://site.icu-project.org/"
   head "https://ssl.icu-project.org/repos/icu/trunk/icu4c/", :using => :svn
   url "https://ssl.icu-project.org/files/icu4c/62.1/icu4c-62_1-src.tgz"
+  mirror "https://github.com/unicode-org/icu/releases/download/release-62-1/icu4c-62_1-src.tgz"
   version "62.1"
   sha256 "3dd9868d666350dda66a6e305eecde9d479fb70b30d5b55d78a1deffb97d5aa3"
 
