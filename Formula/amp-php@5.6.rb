@@ -89,67 +89,14 @@ class AmpPhpAT56 < Formula
       --prefix=#{prefix}
       --localstatedir=#{var}
       --sysconfdir=#{config_path}
-      --with-config-file-path=#{config_path}
-      --with-config-file-scan-dir=#{config_path}/conf.d
-      --enable-bcmath
-      --enable-calendar
-      --enable-dba
-      --enable-exif
-      --enable-ftp
       --enable-fpm
-      --enable-intl
-      --enable-mbregex
-      --enable-mbstring
-      --enable-mysqlnd
-      --enable-opcache-file
-      --enable-pcntl
-      --enable-phpdbg
-      --enable-phpdbg-webhelper
-      --enable-shmop
-      --enable-soap
-      --enable-sockets
-      --enable-sysvmsg
-      --enable-sysvsem
-      --enable-sysvshm
-      --enable-wddx
-      --enable-zip
-      --with-bz2#{headers_path}
-      --with-curl=#{Formula["curl-openssl-with-openssl-1.0"].opt_prefix}
       --with-fpm-user=_www
       --with-fpm-group=_www
-      --with-freetype-dir=#{Formula["freetype"].opt_prefix}
-      --with-gd
-      --with-gettext=#{Formula["gettext"].opt_prefix}
-      --with-gmp=#{Formula["gmp"].opt_prefix}
+      --with-config-file-path=#{config_path}
+      --with-config-file-scan-dir=#{config_path}/conf.d
       --with-iconv#{headers_path}
-      --with-icu-dir=#{Formula["icu4c@62.1"].opt_prefix}
-      --with-jpeg-dir=#{Formula["jpeg"].opt_prefix}
-      --with-kerberos#{headers_path}
-      --with-layout=GNU
-      --with-ldap=#{Formula["openldap"].opt_prefix}
-      --with-ldap-sasl#{headers_path}
-      --with-libedit#{headers_path}
-      --with-libxml-dir#{headers_path}
-      --with-libzip
-      --with-mcrypt=#{Formula["mcrypt"].opt_prefix}
-      --with-mhash#{headers_path}
-      --with-mysql-sock=/tmp/mysql.sock
-      --with-mysqli=mysqlnd
-      --with-ndbm#{headers_path}
-      --with-openssl=#{Formula["openssl"].opt_prefix}
-      --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
-      --with-pdo-mysql=mysqlnd
-      --with-pdo-odbc=unixODBC,#{Formula["unixodbc"].opt_prefix}
-      --with-pdo-pgsql=#{Formula["libpq"].opt_prefix}
-      --with-pgsql=#{Formula["libpq"].opt_prefix}
-      --with-pic
-      --with-png-dir=#{Formula["libpng"].opt_prefix}
-      --with-pspell=#{Formula["aspell"].opt_prefix}
-      --with-unixODBC=#{Formula["unixodbc"].opt_prefix}
-      --with-webp-dir=#{Formula["webp"].opt_prefix}
-      --with-xmlrpc
-      --with-xsl#{headers_path}
-      --with-zlib#{headers_path}
+      --with-icu-dir=/usr/local/opt/icu4c@62.1
+      --enable-intl
     ]
 
     system "./configure", *args
