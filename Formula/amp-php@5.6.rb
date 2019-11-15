@@ -17,7 +17,7 @@ class AmpPhpAT56 < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmp"
-  depends_on "icu4c@62.1"
+  depends_on "icu4c"
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libpq"
@@ -122,7 +122,7 @@ class AmpPhpAT56 < Formula
       --with-gettext=#{Formula["gettext"].opt_prefix}
       --with-gmp=#{Formula["gmp"].opt_prefix}
       --with-iconv#{headers_path}
-      --with-icu-dir=#{Formula["icu4c@62.1"].opt_prefix}
+      --with-icu-dir=#{Formula["icu4c"].opt_prefix}
       --with-jpeg-dir=#{Formula["jpeg"].opt_prefix}
       --with-kerberos#{headers_path}
       --with-layout=GNU
