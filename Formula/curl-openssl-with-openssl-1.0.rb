@@ -22,7 +22,7 @@ class CurlOpensslWithOpenssl10 < Formula
   depends_on "libssh2"
   depends_on "nghttp2"
   depends_on "openldap"
-  depends_on "openssl"
+  depends_on "amp-openssl"
   depends_on "rtmpdump"
 
   def install
@@ -41,7 +41,7 @@ class CurlOpensslWithOpenssl10 < Formula
       --with-libmetalink
       --with-librtmp
       --with-libssh2
-      --with-ssl=#{Formula["openssl"].opt_prefix}
+      --with-ssl=#{Formula["amp-openssl"].opt_prefix}
       --without-libpsl
     ]
 

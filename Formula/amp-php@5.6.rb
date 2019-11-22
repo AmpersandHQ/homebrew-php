@@ -23,7 +23,7 @@ class AmpPhpAT56 < Formula
   depends_on "libpq"
   depends_on "libzip"
   depends_on "mcrypt"
-  depends_on "openssl"
+  depends_on "amp-openssl"
   depends_on "pcre"
   depends_on "unixodbc"
   depends_on "webp"
@@ -136,7 +136,7 @@ class AmpPhpAT56 < Formula
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
       --with-ndbm#{headers_path}
-      --with-openssl=#{Formula["openssl"].opt_prefix}
+      --with-openssl=#{Formula["amp-openssl"].opt_prefix}
       --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
       --with-pdo-mysql=mysqlnd
       --with-pdo-odbc=unixODBC,#{Formula["unixodbc"].opt_prefix}
