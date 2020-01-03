@@ -102,6 +102,7 @@ class AmpPhpAT73 < Formula
       --enable-mbregex
       --enable-mbstring
       --enable-mysqlnd
+      --disable-opcache-file
       --enable-pcntl
       --enable-phpdbg
       --enable-phpdbg-webhelper
