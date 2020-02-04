@@ -223,6 +223,9 @@ class AmpPhpAT54 < Formula
     system "sed -i '' 's/memory_limit = 128M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
     system "sed -i '' 's/memory_limit = 512M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
 
+    # Increase default max_execution_time as magento in developer mode is slow
+    system "sed -i '' 's/max_execution_time = 30/max_execution_time = 60/' #{etc}/php/#{php_version}/php.ini"
+
     # Ensure opcache is disabled
     system "rm -f #{etc}/php/#{php_version}/conf.d/ext-opcache.ini"
 
