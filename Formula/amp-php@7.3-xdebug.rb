@@ -4,8 +4,8 @@ class AmpPhpAT73Xdebug < AbstractPhp73Extension
   init
   desc "Provides debugging and profiling capabilities."
   homepage "https://xdebug.org"
-  url "https://xdebug.org/files/xdebug-2.7.0beta1.tgz"
-  sha256 "90a0ceaf95c7d936113ed0d7474f16978ec2277453be69239d92d0523e0910be"
+  url "https://xdebug.org/files/xdebug-2.7.2.tgz"
+  sha256 "b0f3283aa185c23fcd0137c3aaa58554d330995ef7a3421e983e8d018b05a4a6"
   head "https://github.com/xdebug/xdebug.git"
 
   def extension_type
