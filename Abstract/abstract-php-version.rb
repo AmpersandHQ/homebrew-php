@@ -93,4 +93,15 @@ class AbstractPhpVersion < Formula
       :sha256 => "f841ac58e17471f2241ea892b34edb01dc9b93ad9f661ffe4e3f1f476a8f4aee",
     }.freeze
   end
+
+  module Php74Defs
+    PHP_SRC_TARBALL = "https://php.net/get/php-7.4.0.tar.xz/from/this/mirror".freeze
+    PHP_GITHUB_URL  = "https://github.com/php/php-src.git".freeze
+    PHP_VERSION     = "7.4.0".freeze
+    PHP_BRANCH      = "PHP-7.4".freeze
+
+    PHP_CHECKSUM    = {
+      :sha256 => "9bb751b20e5d6cc1ea9b1ebf23ef2d5f07f99b2d9cc417bf1d70c04f8b20ec42",
+    }.freeze
+  end
 end
