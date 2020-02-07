@@ -4,7 +4,7 @@ The below will symlink the tap to a checkout of this repo
 
 ```
 rm -rf /usr/local/Homebrew/Library/Taps/ampersandhq/homebrew-php
-git clone https://github.com/ampersandHQ/homebrew-php ~/src
+git clone https://github.com/ampersandHQ/homebrew-php ~/src/homebrew-php
 ln -s ~/src/homebrew-php /usr/local/Homebrew/Library/Taps/ampersandhq/homebrew-php
 ```
 
