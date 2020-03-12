@@ -212,7 +212,7 @@ class AmpPhpAT74 < Formula
     system "sed -i '' 's/memory_limit = 512M/memory_limit = 1024M/' #{etc}/php/#{php_version}/php.ini"
 
     # Increase default max_execution_time as magento in developer mode is slow
-    system "sed -i '' 's/max_execution_time = 30/max_execution_time = 60/' #{etc}/php/#{php_version}/php.ini"
+    system "sed -i '' 's/max_execution_time = 30/max_execution_time = 240/' #{etc}/php/#{php_version}/php.ini"
 
     pear_prefix = pkgshare/"pear"
     pear_files = %W[
