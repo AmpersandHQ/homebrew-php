@@ -9,13 +9,6 @@ class AmpPhpAT72Apcu < AbstractPhp72Extension
   head "https://github.com/krakjoe/apcu.git"
   revision 1
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "b6dd92f03b31a521b4ad88a677f8f94d8ca094951c911813b7f5da1d04527298" => :sierra
-    sha256 "60bcb709ff7d55fcab39e84ecade5a04b1ae758de01b56509b4b38906ee84bc4" => :el_capitan
-    sha256 "d2529346a06fbf8c51442c478fb8ee9e08c4227ec1adfc65cc293babac157a26" => :yosemite
-  end
-
   depends_on "pcre"
 
   def install

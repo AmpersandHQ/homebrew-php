@@ -8,13 +8,6 @@ class AmpPhpAT71Apcu < AbstractPhp71Extension
   sha256 "09848619674a0871053cabba3907d2aade395772d54464d3aee45f519e217128"
   head "https://github.com/krakjoe/apcu.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "a472f07fbb2ca596cbbd1b8bfa7a0c8b21438b70f554edf273a1b8438f99c163" => :sierra
-    sha256 "6fad156e3460b69c7ecf26bd6eb8f253892fc30661f10e7741914fb8d6458907" => :el_capitan
-    sha256 "940215421ea29117214feae1a5ff402e98aafa9e9d5d32cf94b73d6a10cba110" => :yosemite
-  end
-
   depends_on "pcre"
 
   def install
