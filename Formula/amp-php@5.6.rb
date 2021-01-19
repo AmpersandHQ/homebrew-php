@@ -40,6 +40,11 @@ class AmpPhpAT56 < Formula
       ENV["SDKROOT"] = MacOS.sdk_path
     end
 
+    # Work around configure issues with Xcode 12
+    # See https://bugs.php.net/bug.php?id=80171
+    # See https://github.com/Homebrew/homebrew-core/pull/61828/
+    ENV.append "CFLAGS", "-Wno-implicit-function-declaration"
+
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
 

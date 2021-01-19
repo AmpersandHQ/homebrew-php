@@ -45,6 +45,11 @@ class AmpPhpAT73 < Formula
       ENV["SDKROOT"] = MacOS.sdk_path
     end
 
+    # Work around configure issues with Xcode 12
+    # See https://bugs.php.net/bug.php?id=80171
+    # See https://github.com/Homebrew/homebrew-core/pull/61828/
+    ENV.append "CFLAGS", "-Wno-implicit-function-declaration"
+
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
 
@@ -196,6 +201,9 @@ class AmpPhpAT73 < Formula
 
     # Increase default max_execution_time as magento in developer mode is slow
     system "sed -i '' 's/max_execution_time = 30/max_execution_time = 240/' #{etc}/php/#{php_version}/php.ini"
+
+    # Ensure opcache is disabled
+    system "rm -f #{etc}/php/#{php_version}/conf.d/ext-opcache.ini"
 
     pear_prefix = pkgshare/"pear"
     pear_files = %W[
