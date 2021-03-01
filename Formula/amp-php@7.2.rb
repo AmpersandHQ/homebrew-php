@@ -47,7 +47,8 @@ class AmpPhpAT72 < Formula
     # Work around configure issues with Xcode 12
     # See https://bugs.php.net/bug.php?id=80171
     # See https://github.com/Homebrew/homebrew-core/pull/61828/
-    ENV.append "CFLAGS", "-Wno-implicit-function-declaration"
+    ENV.append "CFLAGS", "-Wno-implicit-function-declaration  -DU_DEFINE_FALSE_AND_TRUE=1"
+    ENV.append "CXXFLAGS", "-DU_DEFINE_FALSE_AND_TRUE=1"
 
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
