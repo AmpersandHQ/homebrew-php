@@ -28,4 +28,3 @@ class AmpPhpAT73Libsodium < AbstractPhp73Extension
     write_config_file if build.with? "config-file"
   end
 end
-# TODO
