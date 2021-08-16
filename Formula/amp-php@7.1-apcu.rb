@@ -11,8 +11,6 @@ class AmpPhpAT71Apcu < AbstractPhp71Extension
   depends_on "pcre"
 
   def install
-    ENV.universal_binary if build.universal?
-
     args = []
     args << "--enable-apcu"
 

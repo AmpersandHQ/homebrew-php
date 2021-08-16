@@ -14,7 +14,13 @@ class AmpPhpAT73Libsodium < AbstractPhp73Extension
     "libsodium"
   end
 
+  def homebrew_prefix
+    (HOMEBREW_PREFIX)
+  end
+
   def install
+    # Add /opt/homebrew into the path so that include/libsodium.h can be found
+    system "sed -i '' 's;/usr/local ;/usr/local #{homebrew_prefix} ;g' ./config.m4"
     safe_phpize
     system "./configure", "--prefix=#{prefix}", phpconfig
     system "make"
