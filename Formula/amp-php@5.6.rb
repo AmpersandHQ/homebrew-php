@@ -101,7 +101,7 @@ class AmpPhpAT56 < Formula
       --enable-bcmath
       --enable-calendar
       --enable-dba
-      --enable-dtrace
+      --disable-dtrace
       --enable-exif
       --enable-ftp
       --enable-fpm
