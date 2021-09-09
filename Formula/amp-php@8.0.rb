@@ -226,6 +226,7 @@ class AmpPhpAT80 < Formula
 
     # Increase default max_execution_time as magento in developer mode is slow
     system "sed -i '' 's/max_execution_time = 30/max_execution_time = 240/' #{etc}/php/#{php_version}/php.ini"
+    system "sed -i '' 's/max_execution_time = 60/max_execution_time = 240/' #{etc}/php/#{php_version}/php.ini"
 
     # Be doubly sure that opcache.ini file is not generated for local usage
     system "rm -f #{etc}/php/#{php_version}/conf.d/ext-opcache.ini"
