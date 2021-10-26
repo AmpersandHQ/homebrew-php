@@ -8,8 +8,6 @@ class YarnAT151 < Formula
 
   keg_only :versioned_formula
 
-  bottle :unneeded
-
   depends_on "node"
 
   conflicts_with "hadoop", :because => "both install `yarn` binaries"
