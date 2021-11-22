@@ -228,6 +228,10 @@ class AmpPhpAT80 < Formula
     system "sed -i '' 's/max_execution_time = 30/max_execution_time = 240/' #{etc}/php/#{php_version}/php.ini"
     system "sed -i '' 's/max_execution_time = 60/max_execution_time = 240/' #{etc}/php/#{php_version}/php.ini"
 
+    # Set fpm to static mode with 10 processes
+    system "sed -i '' 's/pm = dynamic/pm = static/' #{etc}/php/#{php_version}/php-fpm.d/www.conf"
+    system "sed -i '' 's/pm.max_children = 5/pm.max_children = 10/' #{etc}/php/#{php_version}/php-fpm.d/www.conf"
+
     # Be doubly sure that opcache.ini file is not generated for local usage
     system "rm -f #{etc}/php/#{php_version}/conf.d/ext-opcache.ini"
 
