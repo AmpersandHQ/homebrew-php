@@ -375,3 +375,47 @@ index 36c6e5e3e2..71b1a16607 100644
  PHP_ARG_ENABLE([rpath],
    [whether to enable runpaths],
    [AS_HELP_STRING([--disable-rpath],
+diff --git a/ext/intl/locale/locale_methods.c b/ext/intl/locale/locale_methods.c
+index 1c4ba327bd..1bdfb27b7e 100644
+--- a/ext/intl/locale/locale_methods.c
++++ b/ext/intl/locale/locale_methods.c
+@@ -1326,7 +1326,7 @@ PHP_FUNCTION(locale_filter_matches)
+ 		if( token && (token==cur_lang_tag) ){
+ 			/* check if the char. after match is SEPARATOR */
+ 			chrcheck = token + (strlen(cur_loc_range));
+-			if( isIDSeparator(*chrcheck) || isEndOfTag(*chrcheck) ){
++			if( isIDSeparator(*chrcheck) || isKeywordSeparator(*chrcheck) || isEndOfTag(*chrcheck) ){
+ 				efree( cur_lang_tag );
+ 				efree( cur_loc_range );
+ 				if( can_lang_tag){
+diff --git a/ext/intl/breakiterator/codepointiterator_internal.cpp b/ext/intl/breakiterator/codepointiterator_internal.cpp
+index 71ba056994d0..3982a599af38 100644
+--- a/ext/intl/breakiterator/codepointiterator_internal.cpp
++++ b/ext/intl/breakiterator/codepointiterator_internal.cpp
+@@ -73,7 +73,11 @@ CodePointBreakIterator::~CodePointBreakIterator()
+ 	clearCurrentCharIter();
+ }
+
++#if U_ICU_VERSION_MAJOR_NUM >= 70
++bool CodePointBreakIterator::operator==(const BreakIterator& that) const
++#else
+ UBool CodePointBreakIterator::operator==(const BreakIterator& that) const
++#endif
+ {
+ 	if (typeid(*this) != typeid(that)) {
+ 		return false;
+diff --git a/ext/intl/breakiterator/codepointiterator_internal.h b/ext/intl/breakiterator/codepointiterator_internal.h
+index 43ec79d0b776..93b903a20bb8 100644
+--- a/ext/intl/breakiterator/codepointiterator_internal.h
++++ b/ext/intl/breakiterator/codepointiterator_internal.h
+@@ -37,7 +37,11 @@ namespace PHP {
+
+ 		virtual ~CodePointBreakIterator();
+
++#if U_ICU_VERSION_MAJOR_NUM >= 70
++		virtual bool operator==(const BreakIterator& that) const;
++#else
+ 		virtual UBool operator==(const BreakIterator& that) const;
++#endif
+
+ 		virtual CodePointBreakIterator* clone(void) const;
