@@ -35,6 +35,7 @@ class AmpPhpAT71 < Formula
 
   # PHP build system incorrectly links system libraries
   # see https://github.com/php/php-src/pull/3472
+  # see https://github.com/php/php-src/pull/7596
   patch :DATA
 
   def install
@@ -380,3 +381,48 @@ index 168c465f8d..6c087d152f 100644
      then
        PHP_CHECK_LIBRARY($iconv_lib_name, libiconv, [
          found_iconv=yes
+diff --git a/ext/intl/breakiterator/codepointiterator_internal.cpp b/ext/intl/breakiterator/codepointiterator_internal.cpp
+index 723cfd5022..f6f75d2731 100644
+--- a/ext/intl/breakiterator/codepointiterator_internal.cpp
++++ b/ext/intl/breakiterator/codepointiterator_internal.cpp
+@@ -74,7 +74,11 @@ CodePointBreakIterator::~CodePointBreakIterator()
+ 	clearCurrentCharIter();
+ }
+
++#if U_ICU_VERSION_MAJOR_NUM >= 70
++bool CodePointBreakIterator::operator==(const BreakIterator& that) const
++#else
+ UBool CodePointBreakIterator::operator==(const BreakIterator& that) const
++#endif
+ {
+ 	if (typeid(*this) != typeid(that)) {
+ 		return FALSE;
+diff --git a/ext/intl/breakiterator/codepointiterator_internal.h b/ext/intl/breakiterator/codepointiterator_internal.h
+index d34fc0a2c2..25759c167a 100644
+--- a/ext/intl/breakiterator/codepointiterator_internal.h
++++ b/ext/intl/breakiterator/codepointiterator_internal.h
+@@ -36,7 +36,11 @@ namespace PHP {
+
+ 		virtual ~CodePointBreakIterator();
+
++#if U_ICU_VERSION_MAJOR_NUM >= 70
++		virtual bool operator==(const BreakIterator& that) const;
++#else
+ 		virtual UBool operator==(const BreakIterator& that) const;
++#endif
+
+ 		virtual CodePointBreakIterator* clone(void) const;
+
+diff --git a/ext/intl/locale/locale_methods.c b/ext/intl/locale/locale_methods.c
+index 4ba5e8fa1f..83fc8a9536 100644
+--- a/ext/intl/locale/locale_methods.c
++++ b/ext/intl/locale/locale_methods.c
+@@ -1333,7 +1333,7 @@ PHP_FUNCTION(locale_filter_matches)
+ 		if( token && (token==cur_lang_tag) ){
+ 			/* check if the char. after match is SEPARATOR */
+ 			chrcheck = token + (strlen(cur_loc_range));
+-			if( isIDSeparator(*chrcheck) || isEndOfTag(*chrcheck) ){
++			if( isIDSeparator(*chrcheck) || isKeywordSeparator(*chrcheck) || isEndOfTag(*chrcheck) ){
+ 				if( cur_lang_tag){
+ 					efree( cur_lang_tag );
+ 				}
