@@ -5,6 +5,7 @@ class AmpPhpAT73Xdebug < AbstractPhp73Extension
   desc "Provides debugging and profiling capabilities."
   homepage "https://xdebug.org"
   url "https://xdebug.org/files/xdebug-2.7.2.tgz"
+  mirror "https://github.com/AmpersandHQ/homebrew-php/raw/master/files/xdebug-2.7.2.tgz"
   sha256 "b0f3283aa185c23fcd0137c3aaa58554d330995ef7a3421e983e8d018b05a4a6"
   head "https://github.com/xdebug/xdebug.git"
 
