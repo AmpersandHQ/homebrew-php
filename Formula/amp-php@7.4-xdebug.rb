@@ -4,9 +4,9 @@ class AmpPhpAT74Xdebug < AbstractPhp74Extension
   init
   desc "Provides debugging and profiling capabilities."
   homepage "https://xdebug.org"
-  url "https://xdebug.org/files/xdebug-2.9.2.tgz"
-  mirror "https://github.com/AmpersandHQ/homebrew-php/raw/master/files/xdebug-2.9.2.tgz"
-  sha256 "158cce5ff44411128701227ada80933cbd4b03c241a3d0695a309098b3eecc69"
+  url "https://xdebug.org/files/xdebug-2.9.8.tgz"
+  mirror "https://github.com/AmpersandHQ/homebrew-php/raw/master/files/xdebug-2.9.8.tgz"
+  sha256 "f555b6cc58d96c9965af942d22e0f1818b7a477a410c76b1ab0eebe85a762f8a"
   head "https://github.com/xdebug/xdebug.git"
 
   def extension_type
