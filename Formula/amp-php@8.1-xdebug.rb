@@ -19,6 +19,7 @@ class AmpPhpAT81Xdebug < AbstractPhp81Extension
       #{extension_type}="#{module_path}"
       xdebug.mode=debug
       xdebug.client_port=9010
+      xdebug.idekey=PHPSTORM
       EOS
   rescue StandardError
     nil
