@@ -4,9 +4,9 @@ class AmpPhpAT74Xdebug < AbstractPhp74Extension
   init
   desc "Provides debugging and profiling capabilities."
   homepage "https://xdebug.org"
-  url "https://xdebug.org/files/xdebug-2.9.2.tgz"
-  mirror "https://github.com/AmpersandHQ/homebrew-php/raw/master/files/xdebug-2.9.2.tgz"
-  sha256 "158cce5ff44411128701227ada80933cbd4b03c241a3d0695a309098b3eecc69"
+  url "https://xdebug.org/files/xdebug-3.1.4.tgz"
+  mirror "https://github.com/AmpersandHQ/homebrew-php/raw/master/files/xdebug-3.1.4.tgz"
+  sha256 "4195926f9f6c4e802ff749bb2ca85ac50636719a72e5389e372e35ef523505f9"
   head "https://github.com/xdebug/xdebug.git"
 
   def extension_type
@@ -17,14 +17,18 @@ class AmpPhpAT74Xdebug < AbstractPhp74Extension
     <<~EOS
       [#{extension}]
       #{extension_type}="#{module_path}"
-      xdebug.remote_enable=1
-      xdebug.remote_port=9010
+      xdebug.mode=debug
+      xdebug.client_port=9010
+      xdebug.idekey=PHPSTORM
       EOS
   rescue StandardError
     nil
   end
 
   def install
+    system "pwd"
+    system "ls -lasth"
+
     Dir.chdir "xdebug-#{version}" unless build.head?
 
     safe_phpize
