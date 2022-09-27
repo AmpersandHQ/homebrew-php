@@ -165,6 +165,12 @@ EOS
     config_scandir_path / config_filename
   end
 
+  def unlink_config_file
+    if config_filepath.file?
+        config_filepath.unlink if config_filepath.exist?
+    end
+  end
+
   def write_config_file
     if config_filepath.file?
       inreplace config_filepath do |s|
