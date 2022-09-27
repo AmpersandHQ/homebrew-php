@@ -39,6 +39,7 @@ class AmpPhpAT74Xdebug < AbstractPhp74Extension
                           "--enable-xdebug"
     system "make"
     prefix.install "modules/xdebug.so"
+    unlink_config_file
     write_config_file if build.with? "config-file"
   end
 end
