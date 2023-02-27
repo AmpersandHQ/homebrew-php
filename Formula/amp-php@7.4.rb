@@ -15,7 +15,6 @@ class AmpPhpAT74 < Formula
   depends_on "aspell"
   depends_on "autoconf"
   depends_on "curl"
-  depends_on "curl-openssl"
   depends_on "freetds"
   depends_on "freetype"
   depends_on "gd"
