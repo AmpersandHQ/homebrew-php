@@ -287,8 +287,6 @@ class AmpPhpAT72 < Formula
     version.to_s.split(".")[0..1].join(".")
   end
 
-  plist_options :manual => "php-fpm"
-
   def plist; <<~EOS
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
