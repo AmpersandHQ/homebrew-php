@@ -263,3 +263,12 @@ class AbstractPhp81Extension < AbstractPhpExtension
     depends_on "amp-php@8.1" => opts if build.with?("homebrew-php")
   end
 end
+
+class AbstractPhp82Extension < AbstractPhpExtension
+  include AbstractPhpVersion::Php82Defs
+
+  def self.init(opts = [])
+    super()
+    depends_on "amp-php@8.2" => opts if build.with?("homebrew-php")
+  end
+end

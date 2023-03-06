@@ -1,11 +1,12 @@
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
-class AmpPhpAT55Xdebug < AbstractPhp55Extension
+class AmpPhpAT82Xdebug < AbstractPhp82Extension
   init
-  desc "Provides debugging and profiling capabilities for PHP"
+  desc "Provides debugging and profiling capabilities."
   homepage "https://xdebug.org"
-  url "https://pecl.php.net/get/xdebug-2.5.5.tgz"
-  sha256 "72108bf2bc514ee7198e10466a0fedcac3df9bbc5bd26ce2ec2dafab990bf1a4"
+  url "https://xdebug.org/files/xdebug-3.2.0.tgz"
+  mirror "https://github.com/AmpersandHQ/homebrew-php/raw/master/files/xdebug-3.2.0.tgz"
+  sha256 "7769b20eecdadf5fbe9f582512c10b394fb575b6f7a8c3a3a82db6883e0032b7"
   head "https://github.com/xdebug/xdebug.git"
 
   def extension_type
@@ -16,14 +17,18 @@ class AmpPhpAT55Xdebug < AbstractPhp55Extension
     <<~EOS
       [#{extension}]
       #{extension_type}="#{module_path}"
-      xdebug.remote_enable=1
-      xdebug.remote_port=9010
+      xdebug.mode=debug
+      xdebug.client_port=9010
+      xdebug.idekey=PHPSTORM
       EOS
   rescue StandardError
     nil
   end
 
   def install
+    system "pwd"
+    system "ls -lasth"
+
     Dir.chdir "xdebug-#{version}" unless build.head?
 
     safe_phpize
@@ -34,6 +39,7 @@ class AmpPhpAT55Xdebug < AbstractPhp55Extension
                           "--enable-xdebug"
     system "make"
     prefix.install "modules/xdebug.so"
+    unlink_config_file
     write_config_file if build.with? "config-file"
   end
 end
