@@ -3,7 +3,7 @@ class AmpPhpAT74 < Formula
   homepage "https://secure.php.net/"
   url "https://www.php.net/distributions/php-7.4.33.tar.xz"
   mirror "https://fossies.org/linux/www/php-7.4.33.tar.xz"
-  sha256 "9cc3b6f6217b60582f78566b3814532c4b71d517876c25013ae51811e65d8fce"
+  sha256 "924846abf93bc613815c55dd3f5809377813ac62a9ec4eb3778675b82a27b927"
 
   keg_only :versioned_formula
 
@@ -63,6 +63,7 @@ class AmpPhpAT74 < Formula
     # See https://github.com/Homebrew/homebrew-core/pull/61828/
     ENV.append "CFLAGS", "-Wno-implicit-function-declaration  -DU_DEFINE_FALSE_AND_TRUE=1"
     ENV.append "CXXFLAGS", "-DU_DEFINE_FALSE_AND_TRUE=1"
+    ENV["PKG_CONFIG_PATH"] = "/usr/local/opt/openssl@1.1/lib/pkgconfig:/opt/homebrew/opt/openssl@1.1/lib/pkgconfig:" + ENV["PKG_CONFIG_PATH"]
 
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
