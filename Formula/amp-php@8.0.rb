@@ -63,7 +63,7 @@ class AmpPhpAT80 < Formula
       ENV["SDKROOT"] = MacOS.sdk_path
     end
 
-    ENV["PKG_CONFIG_PATH"] = "/usr/local/opt/openssl@1.1/lib/pkgconfig:/opt/homebrew/opt/openssl@1.1/lib/pkgconfig:" + ENV["PKG_CONFIG_PATH"]
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["openssl@1.1"].opt_lib/"pkgconfig"
 
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
