@@ -1,9 +1,9 @@
 class AmpPhpAT74 < Formula
   desc "General-purpose scripting language"
   homepage "https://secure.php.net/"
-  url "https://www.php.net/distributions/php-7.4.22.tar.xz"
-  mirror "https://fossies.org/linux/www/php-7.4.22.tar.xz"
-  sha256 "8e078cd7d2f49ac3fcff902490a5bb1addc885e7e3b0d8dd068f42c68297bde8"
+  url "https://www.php.net/distributions/php-7.4.28.tar.xz"
+  mirror "https://fossies.org/linux/www/php-7.4.28.tar.xz"
+  sha256 "9cc3b6f6217b60582f78566b3814532c4b71d517876c25013ae51811e65d8fce"
 
   keg_only :versioned_formula
 
@@ -166,7 +166,7 @@ class AmpPhpAT74 < Formula
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
       --with-ndbm#{headers_path}
-      --with-openssl
+      --with-openssl=#{Formula["openssl@1.1"].opt_prefix}
       --with-password-argon2=#{Formula["argon2"].opt_prefix}
       --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
       --with-pdo-mysql=mysqlnd

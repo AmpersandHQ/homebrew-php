@@ -1,8 +1,8 @@
 class AmpPhpAT80 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
-  url "https://www.php.net/distributions/php-8.0.0.tar.xz"
-  sha256 "b5278b3eef584f0c075d15666da4e952fa3859ee509d6b0cc2ed13df13f65ebb"
+  url "https://www.php.net/distributions/php-8.0.29.tar.xz"
+  sha256 "14db2fbf26c07d0eb2c9fab25dbde7e27726a3e88452cca671f0896bbb683ca9"
 
 
   keg_only :versioned_formula
