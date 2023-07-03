@@ -1,8 +1,8 @@
 class AmpPhpAT80 < Formula
   desc "General-purpose scripting language"
   homepage "https://www.php.net/"
-  url "https://www.php.net/distributions/php-8.0.0.tar.xz"
-  sha256 "b5278b3eef584f0c075d15666da4e952fa3859ee509d6b0cc2ed13df13f65ebb"
+  url "https://www.php.net/distributions/php-8.0.29.tar.xz"
+  sha256 "14db2fbf26c07d0eb2c9fab25dbde7e27726a3e88452cca671f0896bbb683ca9"
 
 
   keg_only :versioned_formula
@@ -62,6 +62,8 @@ class AmpPhpAT80 < Formula
     if MacOS.version == :el_capitan || MacOS.version == :sierra
       ENV["SDKROOT"] = MacOS.sdk_path
     end
+
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["openssl@1.1"].opt_lib/"pkgconfig"
 
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
@@ -477,38 +479,6 @@ index 36c6e5e3e2..71b1a16607 100644
  PHP_ARG_ENABLE([rpath],
    [whether to enable runpaths],
    [AS_HELP_STRING([--disable-rpath],
-diff --git a/ext/intl/breakiterator/codepointiterator_internal.cpp b/ext/intl/breakiterator/codepointiterator_internal.cpp
-index 71ba056994d0..3982a599af38 100644
---- a/ext/intl/breakiterator/codepointiterator_internal.cpp
-+++ b/ext/intl/breakiterator/codepointiterator_internal.cpp
-@@ -73,7 +73,11 @@ CodePointBreakIterator::~CodePointBreakIterator()
- 	clearCurrentCharIter();
- }
-
-+#if U_ICU_VERSION_MAJOR_NUM >= 70
-+bool CodePointBreakIterator::operator==(const BreakIterator& that) const
-+#else
- UBool CodePointBreakIterator::operator==(const BreakIterator& that) const
-+#endif
- {
- 	if (typeid(*this) != typeid(that)) {
- 		return false;
-diff --git a/ext/intl/breakiterator/codepointiterator_internal.h b/ext/intl/breakiterator/codepointiterator_internal.h
-index 43ec79d0b776..93b903a20bb8 100644
---- a/ext/intl/breakiterator/codepointiterator_internal.h
-+++ b/ext/intl/breakiterator/codepointiterator_internal.h
-@@ -37,7 +37,11 @@ namespace PHP {
-
- 		virtual ~CodePointBreakIterator();
-
-+#if U_ICU_VERSION_MAJOR_NUM >= 70
-+		virtual bool operator==(const BreakIterator& that) const;
-+#else
- 		virtual UBool operator==(const BreakIterator& that) const;
-+#endif
-
- 		virtual CodePointBreakIterator* clone(void) const;
-
 diff --git a/ext/intl/locale/locale_methods.c b/ext/intl/locale/locale_methods.c
 index 1782dd6ecb43..159b3ea0a192 100644
 --- a/ext/intl/locale/locale_methods.c

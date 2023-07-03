@@ -1,9 +1,9 @@
 class AmpPhpAT74 < Formula
   desc "General-purpose scripting language"
   homepage "https://secure.php.net/"
-  url "https://www.php.net/distributions/php-7.4.22.tar.xz"
-  mirror "https://fossies.org/linux/www/php-7.4.22.tar.xz"
-  sha256 "8e078cd7d2f49ac3fcff902490a5bb1addc885e7e3b0d8dd068f42c68297bde8"
+  url "https://www.php.net/distributions/php-7.4.33.tar.xz"
+  mirror "https://fossies.org/linux/www/php-7.4.33.tar.xz"
+  sha256 "924846abf93bc613815c55dd3f5809377813ac62a9ec4eb3778675b82a27b927"
 
   keg_only :versioned_formula
 
@@ -63,6 +63,7 @@ class AmpPhpAT74 < Formula
     # See https://github.com/Homebrew/homebrew-core/pull/61828/
     ENV.append "CFLAGS", "-Wno-implicit-function-declaration  -DU_DEFINE_FALSE_AND_TRUE=1"
     ENV.append "CXXFLAGS", "-DU_DEFINE_FALSE_AND_TRUE=1"
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["openssl@1.1"].opt_lib/"pkgconfig"
 
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
@@ -166,7 +167,7 @@ class AmpPhpAT74 < Formula
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
       --with-ndbm#{headers_path}
-      --with-openssl
+      --with-openssl=#{Formula["openssl@1.1"].opt_prefix}
       --with-password-argon2=#{Formula["argon2"].opt_prefix}
       --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
       --with-pdo-mysql=mysqlnd
@@ -375,47 +376,16 @@ index 36c6e5e3e2..71b1a16607 100644
  PHP_ARG_ENABLE([rpath],
    [whether to enable runpaths],
    [AS_HELP_STRING([--disable-rpath],
-diff --git a/ext/intl/locale/locale_methods.c b/ext/intl/locale/locale_methods.c
-index 1c4ba327bd..1bdfb27b7e 100644
---- a/ext/intl/locale/locale_methods.c
-+++ b/ext/intl/locale/locale_methods.c
-@@ -1326,7 +1326,7 @@ PHP_FUNCTION(locale_filter_matches)
- 		if( token && (token==cur_lang_tag) ){
- 			/* check if the char. after match is SEPARATOR */
- 			chrcheck = token + (strlen(cur_loc_range));
--			if( isIDSeparator(*chrcheck) || isEndOfTag(*chrcheck) ){
-+			if( isIDSeparator(*chrcheck) || isKeywordSeparator(*chrcheck) || isEndOfTag(*chrcheck) ){
- 				efree( cur_lang_tag );
- 				efree( cur_loc_range );
- 				if( can_lang_tag){
-diff --git a/ext/intl/breakiterator/codepointiterator_internal.cpp b/ext/intl/breakiterator/codepointiterator_internal.cpp
-index 71ba056994d0..3982a599af38 100644
---- a/ext/intl/breakiterator/codepointiterator_internal.cpp
-+++ b/ext/intl/breakiterator/codepointiterator_internal.cpp
-@@ -73,7 +73,11 @@ CodePointBreakIterator::~CodePointBreakIterator()
- 	clearCurrentCharIter();
- }
+diff --git a/build/php.m4 b/build/php.m4
+index 86b522a398..c4b2b8d37d 100644
+--- a/build/php.m4
++++ b/build/php.m4
+@@ -1925,7 +1925,7 @@ dnl
+ AC_DEFUN([PHP_SETUP_OPENSSL],[
+   found_openssl=no
 
-+#if U_ICU_VERSION_MAJOR_NUM >= 70
-+bool CodePointBreakIterator::operator==(const BreakIterator& that) const
-+#else
- UBool CodePointBreakIterator::operator==(const BreakIterator& that) const
-+#endif
- {
- 	if (typeid(*this) != typeid(that)) {
- 		return false;
-diff --git a/ext/intl/breakiterator/codepointiterator_internal.h b/ext/intl/breakiterator/codepointiterator_internal.h
-index 43ec79d0b776..93b903a20bb8 100644
---- a/ext/intl/breakiterator/codepointiterator_internal.h
-+++ b/ext/intl/breakiterator/codepointiterator_internal.h
-@@ -37,7 +37,11 @@ namespace PHP {
+-  PKG_CHECK_MODULES([OPENSSL], [openssl >= 1.0.1], [found_openssl=yes])
++  PKG_CHECK_MODULES([OPENSSL], [openssl < 3.0.0], [found_openssl=yes])
 
- 		virtual ~CodePointBreakIterator();
-
-+#if U_ICU_VERSION_MAJOR_NUM >= 70
-+		virtual bool operator==(const BreakIterator& that) const;
-+#else
- 		virtual UBool operator==(const BreakIterator& that) const;
-+#endif
-
- 		virtual CodePointBreakIterator* clone(void) const;
+   if test "$found_openssl" = "yes"; then
+     PHP_EVAL_LIBLINE($OPENSSL_LIBS, $1)

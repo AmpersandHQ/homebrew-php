@@ -65,6 +65,8 @@ class AmpPhpAT81 < Formula
       ENV["SDKROOT"] = MacOS.sdk_path
     end
 
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["openssl@1.1"].opt_lib/"pkgconfig"
+
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
 
@@ -162,7 +164,7 @@ class AmpPhpAT81 < Formula
       --with-mysql-sock=/tmp/mysql.sock
       --with-mysqli=mysqlnd
       --with-ndbm#{headers_path}
-      --with-openssl
+      --with-openssl=#{Formula["openssl@1.1"].opt_prefix}
       --with-password-argon2=#{Formula["argon2"].opt_prefix}
       --with-pdo-dblib=#{Formula["freetds"].opt_prefix}
       --with-pdo-mysql=mysqlnd
