@@ -11,7 +11,7 @@ ln -s ~/src/homebrew-php $(brew --prefix)/Library/Taps/ampersandhq/homebrew-php
 Then as you modify files you can run commands like this to use your uncommitted files
 
 ```
-~/src/homebrew-php/dev/brew.sh install amp-php@7.4 -vvv
+~/src/homebrew-php/dev/brew.sh install amp-php@8.3 -vvv
 ```
 
 # Debugging
