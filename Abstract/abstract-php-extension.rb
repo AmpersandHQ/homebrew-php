@@ -16,27 +16,6 @@ class InvalidPhpizeError < RuntimeError
 end
 
 class AbstractPhpExtension < Formula
-  def initialize(*)
-    super
-
-    if build.without? "homebrew-php"
-      installed_php_version = nil
-      i = IO.popen("#{phpize} -v")
-      out = i.readlines.join("")
-      i.close
-      { 53 => 20090626, 54 => 20100412, 55 => 20121113, 56 => 20131106, 70 => 20151012, 71 => 20160303, 72 => 20170718 }.each do |v, api|
-        installed_php_version = v.to_s if out.match(/#{api}/)
-      end
-
-      raise UnsupportedPhpApiError if installed_php_version.nil?
-
-      required_php_version = php_branch.sub(".", "").to_s
-      unless installed_php_version == required_php_version
-        raise InvalidPhpizeError.new(installed_php_version, required_php_version)
-      end
-    end
-  end
-
   def self.init
     depends_on "autoconf" => :build
 
