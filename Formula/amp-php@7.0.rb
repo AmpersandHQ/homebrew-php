@@ -41,6 +41,13 @@ class AmpPhpAT70 < Formula
     # Ensure that libxml2 will be detected correctly in older MacOS
     ENV["SDKROOT"] = MacOS.sdk_path if MacOS.version == :el_capitan || MacOS.version == :sierra
 
+    # Work around for building with Xcode 15.3
+    if DevelopmentTools.clang_build_version >= 1500
+      ENV.append "CFLAGS", "-Wno-incompatible-function-pointer-types"
+      ENV.append "LDFLAGS", "-lresolv"
+      inreplace "main/reentrancy.c", "readdir_r(dirp, entry)", "readdir_r(dirp, entry, result)"
+    end
+
     # Work around configure issues with Xcode 12
     # See https://bugs.php.net/bug.php?id=80171
     # See https://github.com/Homebrew/homebrew-core/pull/61828/
@@ -422,6 +429,24 @@ class AmpPhpAT70 < Formula
 end
 
 __END__
+diff --git a/configure.in b/configure.in
+index 7ba3bc05a5..279230fa80 100644
+--- a/configure.in
++++ b/configure.in
+@@ -60,7 +60,13 @@ AH_BOTTOM([
+ #endif
+
+ #if ZEND_BROKEN_SPRINTF
++#ifdef __cplusplus
++extern "C" {
++#endif
+ int zend_sprintf(char *buffer, const char *format, ...);
++#ifdef __cplusplus
++}
++#endif
+ #else
+ # define zend_sprintf sprintf
+ #endif
 diff --git a/acinclude.m4 b/acinclude.m4
 index 168c465f8d..6c087d152f 100644
 --- a/acinclude.m4
