@@ -63,6 +63,12 @@ class AmpPhpAT80 < Formula
       ENV["SDKROOT"] = MacOS.sdk_path
     end
 
+    # Work around for building with Xcode 15.3
+    if DevelopmentTools.clang_build_version >= 1500
+      ENV.append "CFLAGS", "-Wno-incompatible-function-pointer-types"
+      ENV.append "LDFLAGS", "-lresolv"
+    end
+
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["openssl@1.1"].opt_lib/"pkgconfig"
 
     # buildconf required due to system library linking bug patch

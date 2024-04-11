@@ -40,6 +40,12 @@ class AmpPhpAT56 < Formula
     # Ensure that libxml2 will be detected correctly in older MacOS
     ENV["SDKROOT"] = MacOS.sdk_path if MacOS.version == :el_capitan || MacOS.version == :sierra
 
+    # Work around for building with Xcode 15.3
+    if DevelopmentTools.clang_build_version >= 1500
+      ENV.append "CFLAGS", "-Wno-incompatible-function-pointer-types"
+      ENV.append "CFLAGS", "-Wno-implicit-int"
+    end
+
     # Work around configure issues with Xcode 12
     # See https://bugs.php.net/bug.php?id=80171
     # See https://github.com/Homebrew/homebrew-core/pull/61828/
