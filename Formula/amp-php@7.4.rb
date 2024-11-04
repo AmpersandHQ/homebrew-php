@@ -21,7 +21,7 @@ class AmpPhpAT74 < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmp"
-  depends_on "icu4c"
+  depends_on "icu4c@75"
   depends_on "jpeg"
   depends_on "krb5"
   depends_on "libffi"
@@ -63,6 +63,9 @@ class AmpPhpAT74 < Formula
       ENV.append "CFLAGS", "-Wno-incompatible-function-pointer-types"
       ENV.append "LDFLAGS", "-lresolv"
     end
+
+    # Work around to support `icu4c` 75, which needs C++17.
+    ENV["ICU_CXXFLAGS"] = "-std=c++17"
 
     # Work around configure issues with Xcode 12
     # See https://bugs.php.net/bug.php?id=80171
