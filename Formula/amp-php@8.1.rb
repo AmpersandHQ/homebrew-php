@@ -29,7 +29,7 @@ class AmpPhpAT81 < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmp"
-  depends_on "icu4c"
+  depends_on "icu4c@75"
   depends_on "jpeg"
   depends_on "krb5"
   depends_on "libffi"
@@ -60,6 +60,16 @@ class AmpPhpAT81 < Formula
   patch :DATA
 
   def install
+  
+   # Backport fix for libxml2 >= 2.13
+      # Ref: https://github.com/php/php-src/commit/67259e451d5d58b4842776c5696a66d74e157609
+      inreplace "ext/xml/compat.c",
+                "!= XML_PARSER_ENTITY_VALUE && parser->parser->instate != XML_PARSER_ATTRIBUTE_VALUE)",
+                "== XML_PARSER_CONTENT)"
+  
+      # Work around to support `icu4c` 75, which needs C++17.
+      ENV["ICU_CXXFLAGS"] = "-std=c++17"
+      
     # Ensure that libxml2 will be detected correctly in older MacOS
     if MacOS.version == :el_capitan || MacOS.version == :sierra
       ENV["SDKROOT"] = MacOS.sdk_path
