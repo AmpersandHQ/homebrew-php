@@ -20,7 +20,7 @@ class AmpPhpAT72 < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmp"
-  depends_on "icu4c"
+  depends_on "icu4c@75"
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "libpq"
@@ -55,6 +55,10 @@ class AmpPhpAT72 < Formula
     ENV.append "CFLAGS", "-Wno-implicit-function-declaration  -DU_DEFINE_FALSE_AND_TRUE=1"
     ENV.append "CXXFLAGS", "-DU_DEFINE_FALSE_AND_TRUE=1"
 
+    # Work around to support `icu4c` 75, which needs C++17.
+    ENV.append "CXX", "-std=c++17"
+    ENV.libcxx if ENV.compiler == :clang
+
     # buildconf required due to system library linking bug patch
     system "./buildconf", "--force"
 
@@ -79,9 +83,6 @@ class AmpPhpAT72 < Formula
               "your httpd config to use the prefork MPM"
 
     inreplace "sapi/fpm/php-fpm.conf.in", ";daemonize = yes", "daemonize = no"
-
-    # Required due to icu4c dependency
-    ENV.cxx11
 
     config_path = etc/"php/#{php_version}"
     # Prevent system pear config from inhibiting pear install
@@ -135,7 +136,7 @@ class AmpPhpAT72 < Formula
       --with-gettext=#{Formula["gettext"].opt_prefix}
       --with-gmp=#{Formula["gmp"].opt_prefix}
       --with-iconv#{headers_path}
-      --with-icu-dir=#{Formula["icu4c"].opt_prefix}
+      --with-icu-dir=#{Formula["icu4c@75"].opt_prefix}
       --with-jpeg-dir=#{Formula["jpeg"].opt_prefix}
       --with-kerberos#{headers_path}
       --with-layout=GNU
