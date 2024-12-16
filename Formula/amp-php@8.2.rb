@@ -28,7 +28,7 @@ class AmpPhpAT82 < Formula
   depends_on "gettext"
   depends_on "glib"
   depends_on "gmp"
-  depends_on "icu4c"
+  depends_on "icu4c@75"
   depends_on "jpeg"
   depends_on "krb5"
   depends_on "libffi"
